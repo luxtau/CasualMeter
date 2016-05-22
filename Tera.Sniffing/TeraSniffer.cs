@@ -88,6 +88,10 @@ namespace Tera.Sniffing
                 if (!_serversByIp.ContainsKey(connection.Destination.Address.ToString()) &&
                     !_serversByIp.ContainsKey(connection.Source.Address.ToString()))
                     return;
+
+                if(_serverToClient != null)
+                    return;
+
                 _isNew.Add(connection);
                 connection.DataReceived += HandleTcpDataReceived;
             }
