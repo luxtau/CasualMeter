@@ -27,7 +27,8 @@ namespace CasualMeter.Common.Helpers
 
         public void ForceVisibilityRefresh(bool toggle=false)
         {
-            CasualMessenger.Instance.RefreshVisibility(IsTeraActive, toggle);
+            if(SettingsHelper.Instance.Settings.AutoHide)
+                CasualMessenger.Instance.RefreshVisibility(IsTeraActive, toggle);
         }
 
         public void UpdateHotKeys()

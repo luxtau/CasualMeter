@@ -27,6 +27,9 @@ namespace CasualMeter.Common.Entities
         [DefaultValue(true)]
         public bool IsPinned { get; set; }
 
+        [DefaultValue(true)]
+        public bool AutoHide { get; set; }
+
         [DefaultValue(false)]
         public bool UseCompactView { get; set; }
 
