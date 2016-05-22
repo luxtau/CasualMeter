@@ -96,6 +96,22 @@ namespace CasualMeter
                 FixTopPosition();
         }
 
+        private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            CasualMessenger.Instance.Messenger.Send(new RefreshVisibilityMessage()
+            {
+                IsHidden = true
+            });
+        }
+
+        private void ShowItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            CasualMessenger.Instance.Messenger.Send(new RefreshVisibilityMessage()
+            {
+                IsHidden = false
+            });
+        }
+
         private void Exit_OnClick(object sender, RoutedEventArgs e)
         {
             SaveUiSettings();

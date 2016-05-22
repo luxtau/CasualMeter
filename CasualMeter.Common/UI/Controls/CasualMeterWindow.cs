@@ -55,9 +55,27 @@ namespace CasualMeter.Common.UI.Controls
                 DragMove();
         }
 
+        private void ShowAndActivate(bool show)
+        {
+            if(show)
+            {
+                Visibility = Visibility.Visible;
+                Activate();
+                ProcessHelper.Instance.UpdateHotKeys();
+            } else
+            {
+                Visibility = Visibility.Hidden;
+            }
+        }
+
         private void SetVisibility(RefreshVisibilityMessage message)
         {
-            if (SettingsHelper.Instance.Settings.IsPinned)
+            if(message.IsHidden != null)
+            {
+                ShowAndActivate(message.IsHidden.Value == false);
+                return;
+            }
+            if(SettingsHelper.Instance.Settings.IsPinned)
             {
                 Visibility = Visibility.Visible;
                 if (message.Toggle)
@@ -69,7 +87,8 @@ namespace CasualMeter.Common.UI.Controls
             }
             // at this point, it means that we are not pinned, so set the visibility accordingly
             if (message.IsVisible == null) return; //if this is null, there was an error getting active process
-            Visibility = message.IsVisible.Value ? Visibility.Visible : Visibility.Collapsed;
+
+            ShowAndActivate(message.IsVisible.Value);
         }
 
         protected override void OnClosing(CancelEventArgs e)

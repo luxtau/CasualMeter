@@ -27,6 +27,7 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             <ContextMenu x:Key="MainMenu">
+                <MenuItem Header="Show" Click="ShowItem_OnClick"></MenuItem>
                 <MenuItem Header="Exports Directory" Click="ExportsDir_OnClick"></MenuItem>
                 <MenuItem Header="Settings Directory" Click="SettingsDir_OnClick"></MenuItem>
                 <Separator></Separator>
@@ -58,16 +59,16 @@
         <tb:TaskbarIcon IconSource="Resources/CasualMeter.ico"
                         ToolTipText="Casual Meter"
                         ContextMenu="{StaticResource MainMenu}"
-                        DoubleClickCommand="{Binding ToggleIsPinnedCommand}">
+                        TrayMouseDoubleClick="ShowItem_OnClick">
         </tb:TaskbarIcon>
         <StackPanel>
             <StackPanel.LayoutTransform>
-                <ScaleTransform CenterX="0" CenterY="0" 
-                            ScaleX="{Binding ElementName=UiScaleSlider, Path=Value}" 
+                <ScaleTransform CenterX="0" CenterY="0"
+                            ScaleX="{Binding ElementName=UiScaleSlider, Path=Value}"
                             ScaleY="{Binding ElementName=UiScaleSlider, Path=Value}"/>
             </StackPanel.LayoutTransform>
             <Border Width="{StaticResource Width}" Height="25">
-                <Grid MouseDown="MoveControl" 
+                <Grid MouseDown="MoveControl"
                       VerticalAlignment="Center"
                       Style="{StaticResource PanelStyle}">
                     <Grid.ColumnDefinitions>
@@ -75,22 +76,27 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0"
                                Text="{Binding Server, Converter={StaticResource ApplicationTitleConverter}}"/>
-                    <ToggleButton Grid.Column="1"
+                    <Button  Grid.Column="1" Click="MinimizeButton_OnClick"
+                                       Style="{StaticResource ButtonStyle}">
+                      <Image Style="{StaticResource ButtonImageStyle}" Source="{StaticResource DropdownButtonImage}"/>
+                    </Button>
+                    <ToggleButton Grid.Column="2"
                                   Style="{StaticResource ToggleButtonStyle}"
                                   IsChecked="{Binding IsPinned}">
                         <Image Style="{StaticResource ButtonImageStyle}"
                                Source="{StaticResource PinButtonImage}"></Image>
                     </ToggleButton>
-                    <ToggleButton Grid.Column="2" x:Name="SettingsButton"
-                                  Style="{StaticResource ToggleButtonStyle}" 
+                    <ToggleButton Grid.Column="3" x:Name="SettingsButton"
+                                  Style="{StaticResource ToggleButtonStyle}"
                                   Unchecked="SettingsButton_OnUnchecked">
                         <Image Style="{StaticResource ButtonImageStyle}"
                                Source="{StaticResource SettingsButtonImage}"/>
                     </ToggleButton>
-                    <casualMeter:CloseButton Grid.Column="3" Click="Exit_OnClick"/>
+                    <casualMeter:CloseButton Grid.Column="4" Click="Exit_OnClick"/>
                 </Grid>
             </Border>
             <Border Visibility="{Binding ElementName=SettingsButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -103,7 +109,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0">Size</TextBlock>
-                        <Slider Grid.Column="1" x:Name="UiScaleSlider" 
+                        <Slider Grid.Column="1" x:Name="UiScaleSlider"
                                 Minimum="0.7" Maximum="1" Value="1" Width="200"
                                 Margin="3"
                                 HorizontalAlignment="Right"/>
@@ -114,7 +120,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0">Opacity</TextBlock>
-                        <Slider Grid.Column="1" x:Name="OpacityScaleSlider" 
+                        <Slider Grid.Column="1" x:Name="OpacityScaleSlider"
                                 Minimum="0.2" Maximum="1" Value="1" Width="200"
                                 Margin="3"
                                 HorizontalAlignment="Right"/>
@@ -287,13 +293,13 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" 
+                    <TextBlock Grid.Column="0"
                                HorizontalAlignment="Left"
                                Text="{Binding DamageTracker.Duration, Converter={StaticResource TimeSpanToTotalTimeConverter}}"/>
-                    <TextBlock Grid.Column="1" 
+                    <TextBlock Grid.Column="1"
                                HorizontalAlignment="Right"
                                Text="{Binding DamageTracker.TotalDealt.Damage, Converter={StaticResource LongToToTotalDamageConverter}}"/>
-                    <ToggleButton Grid.Column="2" x:Name="EncountersButton" 
+                    <ToggleButton Grid.Column="2" x:Name="EncountersButton"
                                   Style="{StaticResource ToggleButtonStyle}">
                         <Image Source="{StaticResource DropdownButtonImage}"
                                Style="{StaticResource ButtonImageStyle}"/>
@@ -315,7 +321,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ScrollViewer Grid.Row="0" MaxHeight="150" 
+                    <ScrollViewer Grid.Row="0" MaxHeight="150"
                                   HorizontalScrollBarVisibility="Hidden"
                                   VerticalScrollBarVisibility="Auto">
                         <ItemsControl Background="Transparent"

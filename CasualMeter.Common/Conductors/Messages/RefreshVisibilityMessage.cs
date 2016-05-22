@@ -9,6 +9,7 @@ namespace CasualMeter.Common.Conductors.Messages
     public class RefreshVisibilityMessage
     {
         public bool? IsVisible { get; set; }
+        public bool? IsHidden { get; set; }
         public bool Toggle { get; set; }
     }
 }
