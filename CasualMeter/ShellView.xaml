@@ -130,6 +130,28 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0">Pinned</TextBlock>
+                        <CheckBox Grid.Column="1" x:Name="PinnedCheckBox"
+                                  IsChecked="{Binding IsPinned}"
+                                  HorizontalAlignment="Right"
+                                  Margin="0,6,1,0"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0">Auto Show</TextBlock>
+                        <CheckBox Grid.Column="1" x:Name="AutoShowCheckBox"
+                                  IsChecked="{Binding AutoHide}"
+                                  HorizontalAlignment="Right"
+                                  Margin="0,6,1,0"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0">Use Global Hotkeys</TextBlock>
                         <CheckBox Grid.Column="1" x:Name="UseGlobalHotKeysCheckBox"
                                   IsChecked="{Binding UseGlobalHotkeys}"
